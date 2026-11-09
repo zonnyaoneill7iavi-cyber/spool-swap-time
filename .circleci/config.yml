@@ -1,0 +1,1933 @@
+version: 2.1
+
+jobs:
+  CoMpare--ExIt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build artifact 05
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; grep case ~/.bashrc | nl; true ; } > /tmp/reader2/tmp-8af3
+            echo "gate STG_STAGE_8: $(wc -c </tmp/reader2/tmp-8af3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'tmp-8af3'
+  STG_STAGE_8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/tmp-8af3
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  new_pseudo_complex_pull_count:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Gather the job runner
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; seq 24 >${TMPDIR:-/tmp}/admin.bak && split -n 2 ${TMPDIR:-/tmp}/admin.bak ${TMPDIR:-/tmp}/split-gamma_part_ && wc -l ${TMPDIR:-/tmp}/split-gamma_part_*; true ; } > /tmp/reader2/stage90d
+            echo "gate push-it: $(wc -c </tmp/reader2/stage90d) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'stage90d'
+  push-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/stage90d
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  macro-star:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Weigh agar before the freeze
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; id | sort -u | tr -s ' '; true ; } > /tmp/reader2/quick.log.8
+            echo "gate jan22-ship: $(wc -c </tmp/reader2/quick.log.8) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'quick.log.8'
+  jan22-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/quick.log.8
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  cPlatinum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: afterHeroBannerNormalization
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; function c2f { local s=0; for n; do s=$((s + n)); done; echo $s; }; c2f 8 23 30 18 4 34; true ; } > /tmp/reader2/UDP.5814-ux
+            echo "gate bravo-6: $(wc -c </tmp/reader2/UDP.5814-ux) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'UDP.5814-ux'
+  bravo-6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/UDP.5814-ux
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  q-footer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Late tagging
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ps -u $(whoami) | head --lines=5; true ; } > /tmp/reader2/agent-8960
+            echo "gate APP-220: $(wc -c </tmp/reader2/agent-8960) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'agent-8960'
+  APP-220:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/agent-8960
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  ctrlrow:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: STG1 RENDER WAVEFORM
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cat /etc/nsswitch.conf | tr -cs '[:alnum:]' '\n' | rev | sed 's/^/- /'; true ; } > /tmp/reader2/_wip58c7f3a
+            echo "gate PrepareTests: $(wc -c </tmp/reader2/_wip58c7f3a) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '_wip58c7f3a'
+  PrepareTests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/_wip58c7f3a
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  Enable-SrcInfo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: HR 811 key frame conversion
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -dvl ~ | awk '{print $3}' | sort -u; true ; } > /tmp/reader2/user.ridge.teal.shard
+            echo "gate dec17-cleanup: $(wc -c </tmp/reader2/user.ridge.teal.shard) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'user.ridge.teal.shard'
+  dec17-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/user.ridge.teal.shard
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  log-2009-w13:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Render Wiki v10
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/lesson_2020-01-18" &&touch "/tmp/lesson_2020-01-18"/a.tmp "/tmp/lesson_2020-01-18"/b.tmp &&find "/tmp/lesson_2020-01-18" -name '*.tmp' -delete &&ls -A "/tmp/lesson_2020-01-18"; true ; } > /tmp/reader2/api.3335-8241-order
+            echo "gate rip-it: $(wc -c </tmp/reader2/api.3335-8241-order) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'api.3335-8241-order'
+  rip-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/api.3335-8241-order
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  Ping-Payment9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: sample the LED strip NOW
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; yes 'north south east west' | head -n 4; true ; } > /tmp/reader2/valleyLayer
+            echo "gate run-quick-docker-image: $(wc -c </tmp/reader2/valleyLayer) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'valleyLayer'
+  run-quick-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/valleyLayer
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  spoangstranai:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Excuse the wait
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cp /etc/hosts "/tmp/village.copy" && sed -i '1i # managed by hand' "/tmp/village.copy" && wc -l "/tmp/village.copy"; true ; } > /tmp/reader2/draft-451d71
+            echo "gate lets-go: $(wc -c </tmp/reader2/draft-451d71) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'draft-451d71'
+  lets-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/draft-451d71
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  v_idx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Mid run warmup
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; echo -n 'a-b-c' | sha224sum; true ; } > /tmp/reader2/snapshot-v2.1.6
+            echo "gate mar13-release: $(wc -c </tmp/reader2/snapshot-v2.1.6) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'snapshot-v2.1.6'
+  mar13-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/snapshot-v2.1.6
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  BACKUP_RESOURCE_PIN_43:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Skip tokenization if the weekly rollup is late
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; seq 11 115 | awk '{ sum += $1 } END { print sum }'; true ; } > /tmp/reader2/_wip-b13c9
+            echo "gate rust-vet: $(wc -c </tmp/reader2/_wip-b13c9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '_wip-b13c9'
+  rust-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/_wip-b13c9
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  gradient_ref:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build artifact 05
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; mkdir -pv "${TMPDIR:-/tmp}/block-prefs"/calendar/download; true ; } > /tmp/reader2/yFGyFVH
+            echo "gate assemble-nightly-integration-tests: $(wc -c </tmp/reader2/yFGyFVH) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'yFGyFVH'
+  assemble-nightly-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/yFGyFVH
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  Unsafe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Stage five patch the login attempts
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ps axo pid,ppid,stat,comm | tail -n +2 | head -n 2; true ; } > /tmp/reader2/PO-2021-12989
+            echo "gate yankee: $(wc -c </tmp/reader2/PO-2021-12989) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'PO-2021-12989'
+  yankee:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/PO-2021-12989
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  CATEGORY_DYNAMIC:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Updating the readme hold on
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for p in magenta gray red brown; do echo $p | rev; done | paste -sd ' '; true ; } > /tmp/reader2/Glacier
+            echo "gate anothr-run: $(wc -c </tmp/reader2/Glacier) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'Glacier'
+  anothr-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/Glacier
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  GRapH:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Straight after load the backorders
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'duck bear cat' | awk '{n=split($0, a, ""); print n}'; true ; } > /tmp/reader2/eea3a0f2
+            echo "gate rm-retry: $(wc -c </tmp/reader2/eea3a0f2) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'eea3a0f2'
+  rm-retry:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/eea3a0f2
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  XITER9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Harmonize proxy config
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf '%s\n' 92 69 34 97 >'/tmp/cookie_2023-09-20.bak' && sort -n -o '/tmp/cookie_2023-09-20.bak' '/tmp/cookie_2023-09-20.bak' && cat '/tmp/cookie_2023-09-20.bak'; true ; } > /tmp/reader2/20270519
+            echo "gate node20-vet: $(wc -c </tmp/reader2/20270519) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '20270519'
+  node20-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/20270519
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  ZONE_FILE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: TUNE HUB WORLD START
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cp /etc/passwd "/tmp/video-vision-v2.tmp" && gzip -f "/tmp/video-vision-v2.tmp" && ls -l "/tmp/video-vision-v2.tmp".gz; true ; } > /tmp/reader2/RedAdmin
+            echo "gate send-it: $(wc -c </tmp/reader2/RedAdmin) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'RedAdmin'
+  send-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/RedAdmin
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  sqrt-19:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Finally announce the affected users
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cat /dev/null >${TMPDIR:-/tmp}/contact.out && ls -s ${TMPDIR:-/tmp}/contact.out; true ; } > /tmp/reader2/tradequarkquark
+            echo "gate fix-parse: $(wc -c </tmp/reader2/tradequarkquark) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'tradequarkquark'
+  fix-parse:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/tradequarkquark
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  TRL-STAT-FTR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Mirroring Depth 7
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; env|sort|head --lines=5; true ; } > /tmp/reader2/5385af
+            echo "gate raj-run: $(wc -c </tmp/reader2/5385af) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '5385af'
+  raj-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/5385af
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  uriRaiseStruct:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Dispatch customs forms
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf %s 'the answer is 42' | sha384sum | awk '{print $1}'; true ; } > /tmp/reader2/dnzmhRcKsIYW0G5
+            echo "gate perseus-rev: $(wc -c </tmp/reader2/dnzmhRcKsIYW0G5) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'dnzmhRcKsIYW0G5'
+  perseus-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/dnzmhRcKsIYW0G5
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  Select-TabStatus:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Ask support to resume leases
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; upper() { echo "[$(date +%T)] $*"; }; upper "what's next?"; true ; } > /tmp/reader2/harborpacket
+            echo "gate q3-ship: $(wc -c </tmp/reader2/harborpacket) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'harborpacket'
+  q3-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/harborpacket
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  petebot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: I usually pack the tote bins last
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; seq 199 > "/tmp/passport-bak.out" && split -n 4 "/tmp/passport-bak.out" /tmp/otter-dolphin-top_part_ && wc -l /tmp/otter-dolphin-top_part_*; true ; } > /tmp/reader2/OntM
+            echo "gate ensure-full-release-candidate: $(wc -c </tmp/reader2/OntM) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'OntM'
+  ensure-full-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/OntM
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  check_save_score:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Tape the product tour
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; readlink -f /usr/bin/*sum | xargs -n1 basename; true ; } > /tmp/reader2/10.05.2017
+            echo "gate VerifyTests: $(wc -c </tmp/reader2/10.05.2017) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '10.05.2017'
+  VerifyTests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/10.05.2017
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  PARAM:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build artifact 05
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; touch '/var/tmp/otter_recipe.bak' && cp '/var/tmp/otter_recipe.bak'{,.bak} && ls '/var/tmp/otter_recipe.bak'*; true ; } > /tmp/reader2/nx1bz8mqgswq
+            echo "gate feb19-ship: $(wc -c </tmp/reader2/nx1bz8mqgswq) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'nx1bz8mqgswq'
+  feb19-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/nx1bz8mqgswq
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  tax_raise_password:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Shard the base model with warmup
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -i /usr/share/doc|wc -w; true ; } > /tmp/reader2/StoneMuonMothTrade
+            echo "gate preview-build: $(wc -c </tmp/reader2/StoneMuonMothTrade) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'StoneMuonMothTrade'
+  preview-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/StoneMuonMothTrade
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  gamma_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: nuke jwt 8
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; grep -h -R umask /etc 2>/dev/null | sort | head -n 8; true ; } > /tmp/reader2/2e318eb9-effb-b522-daac-9353d5b52c5b
+            echo "gate rigel-ng: $(wc -c </tmp/reader2/2e318eb9-effb-b522-daac-9353d5b52c5b) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2e318eb9-effb-b522-daac-9353d5b52c5b'
+  rigel-ng:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/2e318eb9-effb-b522-daac-9353d5b52c5b
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  thunder-seek-setup-rect-poll:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Pipette the samples and wait
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ps -eo rss= | awk '$1 % 2 == 0' | head -3; true ; } > /tmp/reader2/scarletlayer
+            echo "gate WEB-978: $(wc -c </tmp/reader2/scarletlayer) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'scarletlayer'
+  WEB-978:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/scarletlayer
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  OSCAR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Plan Raven
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; mkdir -p '/var/tmp/error-2024-09-05' && rmdir '/var/tmp/error-2024-09-05' && echo ok; true ; } > /tmp/reader2/ridgefilter
+            echo "gate deploy: $(wc -c </tmp/reader2/ridgefilter) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'ridgefilter'
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/ridgefilter
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+  subscribe_builder_motor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Scroll Slot 3
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -s ~ | sort; true ; } > /tmp/reader2/8e2acb51-cbf3
+            echo "gate jun13-release: $(wc -c </tmp/reader2/8e2acb51-cbf3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '8e2acb51-cbf3'
+  jun13-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Halt upstream reader
+          command: |
+            cat /tmp/reader2/8e2acb51-cbf3
+      - run:
+          name: Get project
+          command: git clone --depth 3 -q --no-single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll vendor sources
+          command: zcat package-pieces.tgz | tar xvf -
+      - run:
+          name: Index artifacts
+          command: uname -a
+      - run:
+          command: "$PWD/guest-stage"
+
+  clip_elf:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Me captioning raw footage
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for w in {1..6..2}; do echo $((RANDOM % 49)); done | wc -l; true ; } > /tmp/reader2/OntM
+            echo "gate ensure-full-release-candidate: $(wc -c </tmp/reader2/OntM) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'OntM'
+  Pete:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build artifact 05
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts >'/tmp/fox_20240427.gz' && gzip -t '/tmp/fox_20240427.gz' && echo valid; true ; } > /tmp/reader2/nx1bz8mqgswq
+            echo "gate feb19-ship: $(wc -c </tmp/reader2/nx1bz8mqgswq) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'nx1bz8mqgswq'
+  NewOption:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Run PnL
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; mkdir -p '/tmp/invoice-garden-media' && ls -ld '/tmp/invoice-garden-media' && rmdir '/tmp/invoice-garden-media'; true ; } > /tmp/reader2/stage90d
+            echo "gate push-it: $(wc -c </tmp/reader2/stage90d) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'stage90d'
+  MustWarning:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Sanitisation of the build artifacts
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; note(){ local a=$1 b=$2; echo $(( a > b ? a : b )); }; note 58 92; true ; } > /tmp/reader2/quick.log.8
+            echo "gate jan22-ship: $(wc -c </tmp/reader2/quick.log.8) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'quick.log.8'
+  meeting_2011_06:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: bind owner compliance
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for w in $(seq 1 4); do echo "line $w"; done | wc -l; true ; } > /tmp/reader2/RedAdmin
+            echo "gate send-it: $(wc -c </tmp/reader2/RedAdmin) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'RedAdmin'
+  ADAPTER_V2_8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Nothing to verify
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; cut -d: -f1 /etc/passwd | nl | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/reader2/snapshot-v2.1.6
+            echo "gate mar13-release: $(wc -c </tmp/reader2/snapshot-v2.1.6) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'snapshot-v2.1.6'
+  interfaceVal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: The exit interviews ok
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; grep -o vendor_id /proc/cpuinfo | nl; true ; } > /tmp/reader2/user.ridge.teal.shard
+            echo "gate dec17-cleanup: $(wc -c </tmp/reader2/user.ridge.teal.shard) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'user.ridge.teal.shard'
+  Charlie:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Centrifuge agar until boot
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; result='can'\''t stop now'; declare -p result; true ; } > /tmp/reader2/20270519
+            echo "gate node20-vet: $(wc -c </tmp/reader2/20270519) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '20270519'
+  dlgscene:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Write off the commissions
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 1 -name '*.txt' -ctime +100 -nouser -print | nl; true ; } > /tmp/reader2/_wip58c7f3a
+            echo "gate PrepareTests: $(wc -c </tmp/reader2/_wip58c7f3a) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '_wip58c7f3a'
+  vpn034:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: The readme versioned nightly
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; sed 's/:.*//' /etc/passwd | pr -4 -t -w 80 | wc -w; true ; } > /tmp/reader2/api.3335-8241-order
+            echo "gate rip-it: $(wc -c </tmp/reader2/api.3335-8241-order) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'api.3335-8241-order'
+  freeze_password:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Two minute warning deletion
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; echo -n 'hi'| tr ' ' '\n'| sort; true ; } > /tmp/reader2/8e2acb51-cbf3
+            echo "gate jun13-release: $(wc -c </tmp/reader2/8e2acb51-cbf3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '8e2acb51-cbf3'
+  nudMETRIC:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Enrolling the timesheets
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - group|gzip -c > '/tmp/se9-bak.tar.gz' && tar -tzf '/tmp/se9-bak.tar.gz'; true ; } > /tmp/reader2/valleyLayer
+            echo "gate run-quick-docker-image: $(wc -c </tmp/reader2/valleyLayer) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'valleyLayer'
+  log_20000603_0936:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Collect the access cards by friday
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; awk '$3 >= 1000 {printf "%-16s %s\n", $1, $7}' /etc/group | sort -u; true ; } > /tmp/reader2/10.05.2017
+            echo "gate VerifyTests: $(wc -c </tmp/reader2/10.05.2017) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '10.05.2017'
+  ipIPArticle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: shadow audit gate
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /sys/class/net ! -name '*' -newermt 2020-01-01 -user $(id -un) -print | wc -l; true ; } > /tmp/reader2/eea3a0f2
+            echo "gate rm-retry: $(wc -c </tmp/reader2/eea3a0f2) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'eea3a0f2'
+  trackUrl:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Sync the courier pickup to Auckland
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /dev -maxdepth 2 -name 'pts' -exec ls -ld {} + 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/reader2/tradequarkquark
+            echo "gate fix-parse: $(wc -c </tmp/reader2/tradequarkquark) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'tradequarkquark'
+  feat-builder-22:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Wrap The Shipping Labels And Strap
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /var/tmp -type f -mmin -60 -exec ls -1 {} + 2>/dev/null|sort; true ; } > /tmp/reader2/StoneMuonMothTrade
+            echo "gate preview-build: $(wc -c </tmp/reader2/StoneMuonMothTrade) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'StoneMuonMothTrade'
+  z_scale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build artifact 05
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf %s 'are we there yet?' | sha1sum | awk '{print $1}'; true ; } > /tmp/reader2/tmp-8af3
+            echo "gate STG_STAGE_8: $(wc -c </tmp/reader2/tmp-8af3) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'tmp-8af3'
+  NamedFakeArticleElement:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Marinate the FX rates overnight
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ps axo pid,ppid,stat,comm | grep -v grep | sort --numeric-sort --reverse -k3,3 | tail -n +2; true ; } > /tmp/reader2/ridgefilter
+            echo "gate deploy: $(wc -c </tmp/reader2/ridgefilter) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'ridgefilter'
+  span130:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Tavern break before loop in
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -a /usr/share/common-licenses | fmt -w 60; true ; } > /tmp/reader2/harborpacket
+            echo "gate q3-ship: $(wc -c </tmp/reader2/harborpacket) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'harborpacket'
+  updateCNNAccount:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Sharding group C
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; command ls -vl /usr/sbin/*fs* | tr -s ' ' | cut -d' ' -f5-; true ; } > /tmp/reader2/UDP.5814-ux
+            echo "gate bravo-6: $(wc -c </tmp/reader2/UDP.5814-ux) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'UDP.5814-ux'
+  channel-p:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Preview the loudness levels right before lunch
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; square(){ for a in "$@"; do echo "[$a]"; done; }; square export bottom scripts; true ; } > /tmp/reader2/scarletlayer
+            echo "gate WEB-978: $(wc -c </tmp/reader2/scarletlayer) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'scarletlayer'
+  yiotwyshteempbot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Park load
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; { echo 'pack my box with five dozen liquor jugs'; echo "can't stop now"; } | sort; true ; } > /tmp/reader2/5385af
+            echo "gate raj-run: $(wc -c </tmp/reader2/5385af) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '5385af'
+  was_default:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Update After Format
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=7272\nuser=otto\ndebug=true\n' > "${TMPDIR:-/tmp}/east_2018-09-14.csv" && sed -n "s/^user=//p" "${TMPDIR:-/tmp}/east_2018-09-14.csv"; true ; } > /tmp/reader2/agent-8960
+            echo "gate APP-220: $(wc -c </tmp/reader2/agent-8960) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'agent-8960'
+  zuluCharlie2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Project Copper Kettle
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls /etc | sed 's/^/- /' | nl; true ; } > /tmp/reader2/Glacier
+            echo "gate anothr-run: $(wc -c </tmp/reader2/Glacier) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'Glacier'
+  mark15:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Keep vacuuming the materialized views
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -R /usr/local | tr '\n' ' '; true ; } > /tmp/reader2/draft-451d71
+            echo "gate lets-go: $(wc -c </tmp/reader2/draft-451d71) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'draft-451d71'
+  unbind_glyph_edge_publish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: SUP1429 Conveyor Count
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 3 \( -name '*.txt' -o -name 'README*' \) -empty -ctime -7 -exec echo {} \; 2> /dev/null | wc -l; true ; } > /tmp/reader2/PO-2021-12989
+            echo "gate yankee: $(wc -c </tmp/reader2/PO-2021-12989) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'PO-2021-12989'
+  knnKNNLayer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: act eight
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; nl -ba -w3 /etc/hosts | head -n2; true ; } > /tmp/reader2/_wip-b13c9
+            echo "gate rust-vet: $(wc -c </tmp/reader2/_wip-b13c9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '_wip-b13c9'
+  g_pRuleManifestMain:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Build artifact 05
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for p in `seq 3`; do echo "line $p"; done|sort -r; true ; } > /tmp/reader2/yFGyFVH
+            echo "gate assemble-nightly-integration-tests: $(wc -c </tmp/reader2/yFGyFVH) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'yFGyFVH'
+  ICON_DEFER_SCENE_DRAIN_BACK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Debrief
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; for word in $(seq 1 3) ; do echo $((RANDOM % 100));done | paste -sd ' '; true ; } > /tmp/reader2/2e318eb9-effb-b522-daac-9353d5b52c5b
+            echo "gate rigel-ng: $(wc -c </tmp/reader2/2e318eb9-effb-b522-daac-9353d5b52c5b) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - '2e318eb9-effb-b522-daac-9353d5b52c5b'
+  url34s:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/reader2
+      - run:
+          name: Early stop after 2
+          command: |
+            mkdir -p /tmp/reader2
+            { set +o pipefail 2>/dev/null; ls -d /etc/*/ | head -n 15 | wc -l; true ; } > /tmp/reader2/dnzmhRcKsIYW0G5
+            echo "gate perseus-rev: $(wc -c </tmp/reader2/dnzmhRcKsIYW0G5) bytes total"
+      - persist_to_workspace:
+          root: /tmp/reader2
+          paths:
+            - 'dnzmhRcKsIYW0G5'
+workflows:
+  all:
+    jobs:
+      - petebot
+      - clip_elf:
+          requires:
+            - petebot
+      - ensure-full-release-candidate:
+          requires:
+            - clip_elf
+      - PARAM:
+          requires:
+            - clip_elf
+      - Pete:
+          requires:
+            - PARAM
+      - feb19-ship:
+          requires:
+            - Pete
+      - new_pseudo_complex_pull_count:
+          requires:
+            - Pete
+      - NewOption:
+          requires:
+            - new_pseudo_complex_pull_count
+      - push-it:
+          requires:
+            - NewOption
+      - macro-star:
+          requires:
+            - NewOption
+      - MustWarning:
+          requires:
+            - macro-star
+      - jan22-ship:
+          requires:
+            - MustWarning
+      - ZONE_FILE:
+          requires:
+            - MustWarning
+      - meeting_2011_06:
+          requires:
+            - ZONE_FILE
+      - send-it:
+          requires:
+            - meeting_2011_06
+      - v_idx:
+          requires:
+            - meeting_2011_06
+      - ADAPTER_V2_8:
+          requires:
+            - v_idx
+      - mar13-release:
+          requires:
+            - ADAPTER_V2_8
+      - Enable-SrcInfo:
+          requires:
+            - ADAPTER_V2_8
+      - interfaceVal:
+          requires:
+            - Enable-SrcInfo
+      - dec17-cleanup:
+          requires:
+            - interfaceVal
+      - XITER9:
+          requires:
+            - interfaceVal
+      - Charlie:
+          requires:
+            - XITER9
+      - node20-vet:
+          requires:
+            - Charlie
+      - ctrlrow:
+          requires:
+            - Charlie
+      - dlgscene:
+          requires:
+            - ctrlrow
+      - PrepareTests:
+          requires:
+            - dlgscene
+      - log-2009-w13:
+          requires:
+            - dlgscene
+      - vpn034:
+          requires:
+            - log-2009-w13
+      - rip-it:
+          requires:
+            - vpn034
+      - subscribe_builder_motor:
+          requires:
+            - vpn034
+      - freeze_password:
+          requires:
+            - subscribe_builder_motor
+      - jun13-release:
+          requires:
+            - freeze_password
+      - Ping-Payment9:
+          requires:
+            - freeze_password
+      - nudMETRIC:
+          requires:
+            - Ping-Payment9
+      - run-quick-docker-image:
+          requires:
+            - nudMETRIC
+      - check_save_score:
+          requires:
+            - nudMETRIC
+      - log_20000603_0936:
+          requires:
+            - check_save_score
+      - VerifyTests:
+          requires:
+            - log_20000603_0936
+      - GRapH:
+          requires:
+            - log_20000603_0936
+      - ipIPArticle:
+          requires:
+            - GRapH
+      - rm-retry:
+          requires:
+            - ipIPArticle
+      - sqrt-19:
+          requires:
+            - ipIPArticle
+      - trackUrl:
+          requires:
+            - sqrt-19
+      - fix-parse:
+          requires:
+            - trackUrl
+      - tax_raise_password:
+          requires:
+            - trackUrl
+      - feat-builder-22:
+          requires:
+            - tax_raise_password
+      - preview-build:
+          requires:
+            - feat-builder-22
+      - CoMpare--ExIt
+      - z_scale:
+          requires:
+            - CoMpare--ExIt
+      - STG_STAGE_8:
+          requires:
+            - z_scale
+      - OSCAR:
+          requires:
+            - z_scale
+      - NamedFakeArticleElement:
+          requires:
+            - OSCAR
+      - deploy:
+          requires:
+            - NamedFakeArticleElement
+      - Select-TabStatus:
+          requires:
+            - NamedFakeArticleElement
+      - span130:
+          requires:
+            - Select-TabStatus
+      - q3-ship:
+          requires:
+            - span130
+      - cPlatinum:
+          requires:
+            - span130
+      - updateCNNAccount:
+          requires:
+            - cPlatinum
+      - bravo-6:
+          requires:
+            - updateCNNAccount
+      - thunder-seek-setup-rect-poll:
+          requires:
+            - updateCNNAccount
+      - channel-p:
+          requires:
+            - thunder-seek-setup-rect-poll
+      - WEB-978:
+          requires:
+            - channel-p
+      - TRL-STAT-FTR:
+          requires:
+            - channel-p
+      - yiotwyshteempbot:
+          requires:
+            - TRL-STAT-FTR
+      - raj-run:
+          requires:
+            - yiotwyshteempbot
+      - q-footer:
+          requires:
+            - yiotwyshteempbot
+      - was_default:
+          requires:
+            - q-footer
+      - APP-220:
+          requires:
+            - was_default
+      - CATEGORY_DYNAMIC:
+          requires:
+            - was_default
+      - zuluCharlie2:
+          requires:
+            - CATEGORY_DYNAMIC
+      - anothr-run:
+          requires:
+            - zuluCharlie2
+      - spoangstranai:
+          requires:
+            - zuluCharlie2
+      - mark15:
+          requires:
+            - spoangstranai
+      - lets-go:
+          requires:
+            - mark15
+      - Unsafe:
+          requires:
+            - mark15
+      - unbind_glyph_edge_publish:
+          requires:
+            - Unsafe
+      - yankee:
+          requires:
+            - unbind_glyph_edge_publish
+      - BACKUP_RESOURCE_PIN_43:
+          requires:
+            - unbind_glyph_edge_publish
+      - knnKNNLayer:
+          requires:
+            - BACKUP_RESOURCE_PIN_43
+      - rust-vet:
+          requires:
+            - knnKNNLayer
+      - gradient_ref:
+          requires:
+            - knnKNNLayer
+      - g_pRuleManifestMain:
+          requires:
+            - gradient_ref
+      - assemble-nightly-integration-tests:
+          requires:
+            - g_pRuleManifestMain
+      - gamma_err:
+          requires:
+            - g_pRuleManifestMain
+      - ICON_DEFER_SCENE_DRAIN_BACK:
+          requires:
+            - gamma_err
+      - rigel-ng:
+          requires:
+            - ICON_DEFER_SCENE_DRAIN_BACK
+      - uriRaiseStruct:
+          requires:
+            - ICON_DEFER_SCENE_DRAIN_BACK
+      - url34s:
+          requires:
+            - uriRaiseStruct
+      - perseus-rev:
+          requires:
+            - url34s
